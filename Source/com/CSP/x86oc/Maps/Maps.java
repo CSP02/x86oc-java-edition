@@ -3,11 +3,11 @@ package com.CSP.x86oc.Maps;
 import java.util.HashMap;
 
 public class Maps {
-    public final HashMap<String, Character> BinaryHexMap = new HashMap<>();
-    public final HashMap<String, String> RegisterBinaryMap = new HashMap<>();
-    public final HashMap<String, String> ModBinaryMap = new HashMap<>();
-    public final HashMap<String, String> RByMBinaryMap = new HashMap<>();
-    public final HashMap<String, String> MnemonicsToBinaryMap = new HashMap<>();
+    public static final HashMap<String, Character> BinaryHexMap = new HashMap<>();
+    public static final HashMap<String, String> RegisterBinaryMap = new HashMap<>();
+    public static final HashMap<String, String> ModBinaryMap = new HashMap<>();
+    public static final HashMap<String, String> RByMBinaryMap = new HashMap<>();
+    public static final HashMap<String, String> MnemonicsToBinaryMap = new HashMap<>();
 
     public Maps(){
         BinaryHexMap.put("0000", '0');

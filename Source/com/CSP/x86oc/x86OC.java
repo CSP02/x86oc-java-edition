@@ -4,8 +4,10 @@ import com.CSP.x86oc.InstructionSet.ArithmeticInstructions.*;
 import com.CSP.x86oc.InstructionSet.DataTransferInstructions.*;
 import com.CSP.x86oc.InstructionSet.InstructionSetMap;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class x86OC {
     public final static ArithmeticInstructions AI = new ArithmeticInstructions();
@@ -16,27 +18,33 @@ public class x86OC {
     }
 
     private static void ask() {
-        System.out.println("Enter the instruction:");
-        try (Scanner inputScanner = new Scanner(System.in)) {
-            String input = inputScanner.nextLine();
+        try {
+            System.out.println("Enter the instruction:");
+            InputStreamReader inputStream = new InputStreamReader(System.in);
+            BufferedReader inputReader = new BufferedReader(inputStream);
+            String input;
+            input = inputReader.readLine();
+
             String[] splitted = input.replaceAll("[^a-zA-Z0-9]", " ").trim().split(" ");
             String[] instruction = new String[10];
-            Integer l = 0;
-            for (Integer i = 0; i < splitted.length; i++) {
+            int l = 0;
+            for (int i = 0; i < splitted.length; i++) {
                 if (!splitted[i].isBlank()) {
                     instruction[l] = splitted[i].toString();
                     l++;
                     // System.out.println(instruction[i]);
                 }
+                findInstructionType(instruction);
             }
-            findInstructionType(instruction);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private static void findInstructionType(String[] Instructions) {
         String[] tempInstruction = Instructions;
         String[] instructions = new String[10];
-        for (Integer i = 0; i < tempInstruction.length; i++) {
+        for (int i = 0; i < tempInstruction.length; i++) {
             String tempInst = tempInstruction[i];
             if (tempInst == "") {
 
@@ -46,8 +54,7 @@ public class x86OC {
         }
         if (instructions.length >= 0) {
             String instruction = instructions[0];
-            InstructionSetMap instructionSetMap = new InstructionSetMap();
-            HashMap<String, String[]> InstructionSet = instructionSetMap.InstructionSetMap;
+            HashMap<String, String[]> InstructionSet = InstructionSetMap.InstructionSetMap;
             String[] DTIInstructions = InstructionSet.get("DTI");
             String[] AIInstructions = InstructionSet.get("AI");
             if (!DTIInstructions[indexOf(DTIInstructions, instruction)].isEmpty()) {
@@ -62,13 +69,13 @@ public class x86OC {
         ask();
     }
 
-    private static Integer indexOf(String[] instructions, String instruction) {
-        for (Integer k = 0; k < instructions.length; k++) {
+    private static int indexOf(String[] instructions, String instruction) {
+        for (int k = 0; k < instructions.length; k++) {
             if (instructions[k].equalsIgnoreCase(instruction)) {
                 return k;
             } else {
             }
         }
-        return null;
+        return 0;
     }
 }
