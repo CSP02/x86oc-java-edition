@@ -24,18 +24,16 @@ public class x86OC {
             BufferedReader inputReader = new BufferedReader(inputStream);
             String input;
             input = inputReader.readLine();
-
             String[] splitted = input.replaceAll("[^a-zA-Z0-9]", " ").trim().split(" ");
-            String[] instruction = new String[10];
+            String[] instructions = new String[10];
             int l = 0;
             for (int i = 0; i < splitted.length; i++) {
                 if (!splitted[i].isBlank()) {
-                    instruction[l] = splitted[i].toString();
+                    instructions[l] = splitted[i].toString();
                     l++;
-                    // System.out.println(instruction[i]);
                 }
-                findInstructionType(instruction);
             }
+            findInstructionType(instructions);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,9 +55,11 @@ public class x86OC {
             HashMap<String, String[]> InstructionSet = InstructionSetMap.InstructionSetMap;
             String[] DTIInstructions = InstructionSet.get("DTI");
             String[] AIInstructions = InstructionSet.get("AI");
-            if (!DTIInstructions[indexOf(DTIInstructions, instruction)].isEmpty()) {
+            if (indexOf(DTIInstructions, instruction) != null
+                    && !DTIInstructions[indexOf(DTIInstructions, instruction)].isEmpty()) {
                 DTI.findAddressingModeAndGenOpCode(instructions);
-            } else if (!AIInstructions[indexOf(AIInstructions, instruction)].isEmpty()) {
+            } else if (indexOf(AIInstructions, instruction) != null
+                    && !AIInstructions[indexOf(AIInstructions, instruction)].isEmpty()) {
                 AI.findAddressingModeAndGenOpCode(instructions);
             } else {
             }
@@ -69,13 +69,13 @@ public class x86OC {
         ask();
     }
 
-    private static int indexOf(String[] instructions, String instruction) {
+    private static Integer indexOf(String[] instructions, String instruction) {
         for (int k = 0; k < instructions.length; k++) {
             if (instructions[k].equalsIgnoreCase(instruction)) {
                 return k;
             } else {
             }
         }
-        return 0;
+        return null;
     }
 }

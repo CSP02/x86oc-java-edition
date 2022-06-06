@@ -1,41 +1,39 @@
 package com.CSP.x86oc.InstructionSet.ArithmeticInstructions;
 
-public class MUL{
-    MUL(String soure, String destination, String binarycode, String hexcode, Integer w) {
+import com.CSP.x86oc.Maps.Maps;
 
+public class MUL extends Maps {
+    MUL(String soure, String destination, String binarycode, String hexCode, int w) {
+        String mod = "";
+        String rbym = "";
+        if (destination.matches("[a-zA-Z]+")) {
+            mod = ModBinaryMap.get("REG2REG");
+            rbym = RegisterBinaryMap.get(destination);
+            binarycode = MnemonicsToBinaryMap.get("MUL").replace("w", Integer.toString(w)).replace("mod", mod)
+                    .replace("rbym", rbym);
+            String[] binaryNibbles = binarycode.split(" ");
+            for (int i = 0; i < binaryNibbles.length; i++) {
+                String binaryNibble = binaryNibbles[i];
+                hexCode += BinaryHexMap.get(binaryNibble);
+            }
+            if (w == 1)
+                System.out.println(hexCode + "h ---> 16 BIT");
+            else if (w == 0)
+                System.out.println(hexCode + "h ---> 8 BIT");
+        } else {
+            mod = ModBinaryMap.get("0D");
+            rbym = RByMBinaryMap.get("D16");
+            binarycode = MnemonicsToBinaryMap.get("MUL").replace("w", Integer.toString(w)).replace("mod", mod)
+                    .replace("rbym", rbym);
+            String[] binaryNibbles = binarycode.split(" ");
+            for (int i = 0; i < binaryNibbles.length; i++) {
+                String binaryNibble = binaryNibbles[i];
+                hexCode += BinaryHexMap.get(binaryNibble);
+            }
+            if (w == 1)
+                System.out.println(hexCode + "h");
+            else if (w == 0)
+                System.out.println(hexCode + "h");
+        }
     }
 }
-
-//const { BinaryHexMap, RegisterBinaryMap, ModBinaryMap, RByMBinaryMap } = require('../../Maps/BinaryHexCodeMap')
-//const { MnemonicsToBinaryMap } = require('../../Maps/MnemonicsToBinaryMap')
-//
-//class MUL {
-//    constructor(source, destination, binarycode, hexCode, w) {
-//        let mod = ''
-//        let rbym = ''
-//        if (/[a-dA-D]/.test(destination)) {
-//            mod = ModBinaryMap.get('REG2REG')
-//            rbym = RegisterBinaryMap.get(destination)
-//            binarycode = MnemonicsToBinaryMap.get('MUL').replace('w', w).replace('mod', mod).replace('rbym', rbym)
-//            binarycode.split(' ').forEach(binaryNibble => {
-//                hexCode += BinaryHexMap.get(binaryNibble)
-//            });
-//            if (w == 1)
-//                console.log("\x1b[1m", "\x1b[37m", "\x1b[45m", `${hexCode}h ---> 16 BIT`, "\x1b[0m")
-//            else if (w == 0)
-//                console.log("\x1b[1m", "\x1b[37m", "\x1b[45m", `${hexCode}h ---> 8 BIT`, "\x1b[0m")
-//        } else {
-//            mod = ModBinaryMap.get('0D')
-//            rbym = RByMBinaryMap.get('D16')
-//            binarycode = MnemonicsToBinaryMap.get('MUL').replace('w', w).replace('mod', mod).replace('rbym', rbym)
-//            binarycode.split(' ').forEach(binaryNibble => {
-//                hexCode += BinaryHexMap.get(binaryNibble)
-//            });
-//            if (w == 1)
-//                console.log("\x1b[1m", "\x1b[37m", "\x1b[43m", `${hexCode}h`, "\x1b[0m")
-//            else if (w == 0)
-//                console.log("\x1b[1m", "\x1b[37m", "\x1b[42m", `${hexCode}h`, "\x1b[0m")
-//        }
-//    }
-//}
-//

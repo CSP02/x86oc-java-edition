@@ -1,7 +1,7 @@
 package com.CSP.x86oc.InstructionSet.ArithmeticInstructions;
 
-public class iMul {
-    iMul() {
+public class IMUL {
+    IMUL() {
 
     }
 }

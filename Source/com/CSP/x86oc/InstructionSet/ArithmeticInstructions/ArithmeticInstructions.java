@@ -7,7 +7,7 @@ public class ArithmeticInstructions {
         String source = instructions[2];
         String binarycode = "";
         String hexCode = "";
-        Integer w = 0;
+        int w = 0;
         try {
             if (source.length() >= 4 && destination.length() >= 4 && !source.contains("h")) {
                 System.out.println("Invalid instruction you cannot send data to memory from memory");
